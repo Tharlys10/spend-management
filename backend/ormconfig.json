@@ -4,8 +4,8 @@
   "port": 5432,
   "username": "postgres",
   "password": "password",
-  "database": "database",
-  "synchronize": true,
+  "database": "spend-management",
+  "synchronize": false,
   "logging": false,
   "entities": [
     "./src/entities/*.ts"
