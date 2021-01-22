@@ -1,0 +1,16 @@
+:root {
+  --green-default: #008000;
+}
+
+body {
+  background-color: #F0F2F5;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* === === Sub titles === === */
+h2 {
+  margin-top: 3.2rem;
+  margin-bottom: 0.8rem;
+
+  font-weight: normal;
+}

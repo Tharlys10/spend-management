@@ -1,11 +1,22 @@
 <template>
-  <div class="container-login">
+  <div class="container-register">
     <v-card
-      class="mx-auto card-login"
+      class="mx-auto card-register"
       outlined
       elevation="20"
     >
-      <v-form v-model="validFormLogin">
+      <v-form v-model="validFormRegister">
+        <v-text-field
+          v-model="name"
+          label="Nome completo"
+          :rules="[
+            v => !!v || 'Nome é obrigatório',
+          ]"
+          color="var(--green-default)"
+          append-icon="mdi-account"
+          outlined
+          @keyup.enter="validFormRegister ? sendRegister() : null"
+        />
         <v-text-field
           v-model="mail"
           label="E-mail"
@@ -16,7 +27,7 @@
           color="var(--green-default)"
           append-icon="mdi-email"
           outlined
-          @keyup.enter="validFormLogin ? sendLogin() : null"
+          @keyup.enter="validFormRegister ? sendRegister() : null"
         />
         <v-text-field
           v-model="password"
@@ -29,7 +40,7 @@
           color="var(--green-default)"
           append-icon="mdi-lock"
           outlined
-          @keyup.enter="validFormLogin ? sendLogin() : null"
+          @keyup.enter="validFormRegister ? sendRegister() : null"
         />
         <v-checkbox
           class="ma-0"
@@ -38,21 +49,21 @@
           color="var(--green-default)"
         ></v-checkbox>
         <div
-          class="box-btn-login"
+          class="box-btn-register"
         >
           <v-btn 
-            class="btn-login"
+            class="btn-register"
             color="var(--green-default)"
             large
-            :dark="validFormLogin"
-            :disabled="!validFormLogin"
-            @click="sendLogin"
+            :dark="validFormRegister"
+            :disabled="!validFormRegister"
+            @click="sendRegister"
           >
-            LOGIN
+            Finalizar
           </v-btn>
         </div>
         <br />
-        <span>Não tem conta? <router-link to="/register" class="register-link">Registre-se aqui</router-link></span>
+        <span>Já tem uma conta? <router-link to="/login" class="register-link">Login</router-link></span>
       </v-form>
     </v-card>
   </div>
@@ -63,17 +74,19 @@ import { Component, Vue } from 'nuxt-property-decorator'
 import { LoginDto } from '~/@types'
 
 @Component({})
-export default class LoginPage extends Vue {
+export default class RegisterPage extends Vue {
   mailPattern = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21\x23-\x5B\x5D-\x7F]|\\[\x01-\x09\x0B\x0C\x0E-\x7F])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0B\x0C\x0E-\x1F\x21-\x5A\x53-\x7F]|\\[\x01-\x09\x0B\x0C\x0E-\x7F])+)\])/
 
   obscuredPassword: boolean = false
-  validFormLogin: boolean = false
+  validFormRegister: boolean = false
 
+  name: string = ''
   mail: string = ''
   password: string = ''
 
-  sendLogin(){
-    let payload: LoginDto = {
+  sendRegister(){
+    let payload = {
+      name: this.name.toUpperCase(),
       mail: this.mail.trim().toLowerCase(),
       password: this.password
     }
@@ -85,7 +98,7 @@ export default class LoginPage extends Vue {
 </script>
 
 <style>
-.container-login {
+.container-register {
   background-color: var(--green-default);
   width: 100vw;
   height: 100vh;
@@ -93,17 +106,17 @@ export default class LoginPage extends Vue {
   align-items: center;
 }
 
-.card-login {
+.card-register {
   width: min(90vw, 450px);
-  padding: 3rem 2.5rem;
+  padding: 1.5rem 2.5rem;
 }
 
-.box-btn-login {
+.box-btn-register {
   display: flex;
   justify-content: center;
 }
 
-.btn-login {
+.btn-register {
   width: min(50vw, 300px);
 }
 
