@@ -20,8 +20,10 @@ class CreateUserService {
 
     const hashedPassword = await hash(password, 8)
 
+    let nameUpCase = name.toUpperCase();
+
     const user = usersRepository.create({
-      name,
+      name: nameUpCase,
       email,
       password: hashedPassword
     })

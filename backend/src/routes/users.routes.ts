@@ -10,19 +10,11 @@ usersRouter.post('/', ensureAuthenticated, async (request, response) => {
 
   const createUser = new CreateUserService()
 
-  interface UserOfPassword {
-    name: string
-    email: string
-    password ?: string
-  }
-
-  const user: UserOfPassword = await createUser.execute({
+  const user = await createUser.execute({
     name,
     email,
     password
   })
-
-  delete user.password
 
   return response.json(user)
 })
