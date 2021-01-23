@@ -2,7 +2,7 @@
   <v-app dark>
     <v-main>
       <v-container class="container" fluid>
-        <AppBar/>
+        <AppBar v-if="$route.path != '/login' && $route.path != '/register'"/>
         <nuxt />
       </v-container>
     </v-main>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-
+  
 </script>
 
 <style>

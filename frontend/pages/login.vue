@@ -86,7 +86,7 @@ export default class LoginPage extends Vue {
 
 <style>
 .container-login {
-  background-color: var(--green-default);
+  background-image: linear-gradient(to bottom right, var(--green-default), #4FBF1F);
   width: 100vw;
   height: 100vh;
   display: flex;

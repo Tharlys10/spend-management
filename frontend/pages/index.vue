@@ -11,7 +11,7 @@
         >
           <div class="menu-transaction">
             <h2 class="text-uppercase">Transações</h2>
-            <v-btn text class="button-menu-transaction">
+            <v-btn @click="dialogNewTransaction = true" text class="button-menu-transaction">
               <v-icon>mdi-plus</v-icon>
               Nova transação
             </v-btn>
@@ -30,10 +30,23 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <v-dialog v-model="dialogNewTransaction" max-width="600">
+      <NewTransaction 
+        v-if="dialogNewTransaction"
+        v-on:commit-close="dialogNewTransaction = false"
+      />
+    </v-dialog>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { Component, Vue } from "nuxt-property-decorator";
+
+@Component
+export default class HomePage extends Vue {
+  dialogNewTransaction: boolean = false
+}
 </script>
 
 <style>
